@@ -44,45 +44,91 @@ def index(request):
         "Гидротехнический"
     ]
 
+    group_array = [
+        Group(
+            id_group=1,
+            name_group="Квартира",
+            count_items=random.randint(0, 500),
+            count_checked=random.randint(0, 100),
+            count_breach=random.randint(0, 100),
+            count_accepted=random.randint(0, 100)
+        ),
+        Group(
+            id_group=2,
+            name_group="Дача",
+            count_items=random.randint(0, 500),
+            count_checked=random.randint(0, 100),
+            count_breach=random.randint(0, 100),
+            count_accepted=random.randint(0, 100)
+        ),
+        Group(
+            id_group=3,
+            name_group="Завод",
+            count_items=random.randint(0, 500),
+            count_checked=random.randint(0, 100),
+            count_breach=random.randint(0, 100),
+            count_accepted=random.randint(0, 100)
+        ),
+        Group(
+            id_group=4,
+            name_group="Тюрьма",
+            count_items=random.randint(0, 500),
+            count_checked=random.randint(0, 100),
+            count_breach=random.randint(0, 100),
+            count_accepted=random.randint(0, 100)
+        ),
+        Group(
+            id_group=5,
+            name_group="Военный объект",
+            count_items=random.randint(0, 500),
+            count_checked=random.randint(0, 100),
+            count_breach=random.randint(0, 100),
+            count_accepted=random.randint(0, 100)
+        ),
+
+    ]
+
     list_of_building_status_models = []
     for number in range(9):
-        list_of_building_status_models.append(
-            BuildingStatusItemModel(
-                id_ob=number,
-                name_obj=names_of_build[number],
-                addr_obj=addresses_of_build[number],
-                cat_obj=types_of_build[number],
-                count_items_oper_no=random.randint(0, 100),
-                count_items_oper_breach=random.randint(0, 100),
-                count_items_oper_accepted=random.randint(0, 100),
-                groups_arr=[
-                    Group(
-                        id_group=1,
-                        name_group="Квартира",
-                        count_items=random.randint(0, 500),
-                        count_checked=random.randint(0, 100),
-                        count_breach=random.randint(0, 100),
-                        count_accepted=random.randint(0, 100)
-                    ),
-                    Group(
-                        id_group=2,
-                        name_group="Дача",
-                        count_items=random.randint(0, 500),
-                        count_checked=random.randint(0, 100),
-                        count_breach=random.randint(0, 100),
-                        count_accepted=random.randint(0, 100)
-                    ),
-                    Group(
-                        id_group=3,
-                        name_group="Завод",
-                        count_items=random.randint(0, 500),
-                        count_checked=random.randint(0, 100),
-                        count_breach=random.randint(0, 100),
-                        count_accepted=random.randint(0, 100)
-                    )
-                ],
+        if number == 0:
+            list_of_building_status_models.append(
+                BuildingStatusItemModel(
+                    id_ob=number,
+                    name_obj=names_of_build[number],
+                    addr_obj=addresses_of_build[number],
+                    cat_obj=types_of_build[number],
+                    count_items_oper_no=random.randint(0, 100),
+                    count_items_oper_breach=random.randint(0, 100),
+                    count_items_oper_accepted=random.randint(0, 100),
+                    groups_arr=group_array,
+                )
             )
-        )
+        elif number == 1:
+            list_of_building_status_models.append(
+                BuildingStatusItemModel(
+                    id_ob=number,
+                    name_obj=names_of_build[number],
+                    addr_obj=addresses_of_build[number],
+                    cat_obj=types_of_build[number],
+                    count_items_oper_no=random.randint(0, 100),
+                    count_items_oper_breach=random.randint(0, 100),
+                    count_items_oper_accepted=random.randint(0, 100),
+                    groups_arr=[],
+                )
+            )
+        else:
+            list_of_building_status_models.append(
+                BuildingStatusItemModel(
+                    id_ob=number,
+                    name_obj=names_of_build[number],
+                    addr_obj=addresses_of_build[number],
+                    cat_obj=types_of_build[number],
+                    count_items_oper_no=random.randint(0, 100),
+                    count_items_oper_breach=random.randint(0, 100),
+                    count_items_oper_accepted=random.randint(0, 100),
+                    groups_arr=group_array[:random.randint(0, len(group_array)):],
+                )
+            )
 
     return HttpResponse(ToJSONEncoder().encode(list_of_building_status_models), content_type="application/json")
 
